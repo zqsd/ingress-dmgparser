@@ -1,0 +1,25 @@
+{
+  "name": "ingress-dmgparser",
+  "version": "1.0.0",
+  "description": "Ingress Damage report mail parser",
+  "main": "index.js",
+  "scripts": {
+    "test": "uvu -r esm tests"
+  },
+  "keywords": [
+    "ingress",
+    "parser"
+  ],
+  "author": "Clément Wiz <wiz@haxx.es>",
+  "license": "ISC",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "jsdom": "^16.4.0",
+    "mailparser": "^3.0.1",
+    "query-string": "^6.13.8",
+    "querystring": "^0.2.1"
+  },
+  "devDependencies": {
+    "uvu": "^0.5.1"
+  }
+}
