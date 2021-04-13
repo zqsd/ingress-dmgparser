@@ -1,7 +1,20 @@
 const querystring = require('querystring');
 
 export function getDmgRows(document) {
-    return document.querySelectorAll('table[width="750px"] > tbody > tr > td > table[width="700px"] > tbody > tr');
+    const trs = document.querySelector('table[width="750px"] > tbody > tr > td > table[width="700px"] > tbody').childNodes;
+    const damages = [];
+    let start = 2; // skip agent name and DAMAGE REPORT ROW
+
+    for(let i = start; i < trs.length; i++) {
+        const td = trs[i].childNodes[0];
+        // manage separator
+        if(td && td.childNodes.length === 0) {
+            damages.push(Array.prototype.slice.call(trs, start, i));
+            start = i + 1;
+        }
+    }
+    damages.push(Array.prototype.slice.call(trs, start));
+    return damages;
 }
 
 export function parseMainAgent(tr) {

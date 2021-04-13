@@ -1,0 +1,67 @@
+{
+    "attackee": "jarvis",
+    "timestamp": 1609934238000,
+    "agents": {
+        "jarvis": {
+            "name": "jarvis",
+            "team": "enlightened",
+            "level": 15,
+            "email": "jarvis@ingress.com"
+        },
+        "ADA": {
+            "name": "ADA",
+            "team": "resistance"
+        }
+    },
+    "portals": {
+        "43.60747,3.897869": {
+            "name": "Hôtel de Région",
+            "address": "Quai de Cythère, 34000 Montpellier, France",
+            "image": "http://lh3.googleusercontent.com/pfIJNBk_l6U3_Llp9EJ0Is5898Pk9lEnjkJxo3_cHsuJbP6Q7zBpw7p5pVlrL5z4Ahl1CFFae4D4C71KKPMRrrVSTaDr",
+            "team": "enlightened",
+            "resonators": 8,
+            "level": 7,
+            "health": 98,
+            "owner": "jarvis",
+            "latitude": 43.60747,
+            "longitude": 3.897869
+        },
+        "43.605902,3.897688": {
+            "name": "L'Arbre Blanc",
+            "address": "1 Allée de Platon, 34000 Montpellier, France",
+            "image": "http://lh3.googleusercontent.com/4FS1SbeMghH5jS9gSgB9KpGwuzdZ-yWy7POGYOGRAQWPYpJrII3u4QDv6NyjsQmLCAOBCkO5pH08BP27IYtN028Kaw",
+            "team": "enlightened",
+            "resonators": 2,
+            "latitude": 43.605902,
+            "longitude": 3.897688
+        },
+        "43.604104,3.896939": {
+            "name": "Passerelle des Barons de Caravetes",
+            "address": "222 Place des Barons de Caravettes, 34000 Montpellier, France",
+            "image": "http://lh3.googleusercontent.com/L8jE2rn1gC6r2SFIWFt-iwg9PXxYl1GNU_sdMJLDjsUwyWe9v2rz23jd4VSKta3KGrwFLHc-73MTyCa_8isie8kAA4M",
+            "resonators": 8,
+            "level": 7,
+            "team": "enlightened",
+            "health": 100,
+            "owner": "jarvis",
+            "latitude": 43.604104,
+            "longitude": 3.896939
+        }
+    },
+    "damages": [
+        {
+            "portal": "43.60747,3.897869",
+            "attacker": "ADA",
+            "resonators": 0,
+            "mods": 0,
+            "links": ["43.605902,3.897688"]
+        },
+        {
+            "portal": "43.604104,3.896939",
+            "attacker": "ADA",
+            "resonators": 0,
+            "mods": 0,
+            "links": ["43.605902,3.897688"]
+        }
+    ]
+}
