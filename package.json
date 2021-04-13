@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Ingress Damage report mail parser",
   "main": "parseMail.js",
+  "type": "module",
   "scripts": {
     "test": "uvu -r esm tests"
   },
