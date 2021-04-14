@@ -1,0 +1,39 @@
+{
+    "attackee": "jarvis",
+    "timestamp": 1618326609000,
+    "agents": {
+        "jarvis": {
+            "name": "jarvis",
+            "team": "enlightened",
+            "level": 15,
+            "email": "jarvis@ingress.com"
+        },
+        "ADA": {
+            "name": "ADA",
+            "team": "resistance"
+        }
+    },
+    "portals": {
+        "43.603143,3.879331": {
+            "name": "Trompe L'oeil",
+            "address": "1 Rue Frédéric Bazille, 34000 Montpellier, France",
+            "image": "http://lh3.googleusercontent.com/Wn26ojRCLK99JcO0il1uA_vlPmQCpL-p0kdHYkpVD7xUN7e8mwas2MJmMD2FOd0tphvSEVh1MaHVCR2DuYmb5xaFb_ez",
+            "latitude": 43.603143,
+            "longitude": 3.879331,
+            "resonators": 0,
+            "team": "neutral",
+            "level": 1,
+            "health": 0,
+            "owner": null
+        }
+    },
+    "damages": [
+        {
+            "portal": "43.603143,3.879331",
+            "attacker": "ADA",
+            "resonators": 1,
+            "mods": 0,
+            "links": []
+        }
+    ]
+}

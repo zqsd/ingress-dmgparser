@@ -29,14 +29,16 @@ export default async function(rawMail) {
             portalData.level = status.level;
             portalData.health = status.health;
             addAgent(status.owner);
-            portalData.owner = status.owner.name;
+            portalData.owner = status.owner?.name || null;
         }
         return portalsMap[key] = key in portalsMap ? Object.assign(portalsMap[key], portalData) : portalData;
     }
 
     function addAgent(agentData) {
-        const key = agentData.name;
-        return agentsMap[key] = key in agentsMap ? Object.assign(agentsMap[key], agentData) : agentData;
+        if(agentData) {
+            const key = agentData.name;
+            return agentsMap[key] = key in agentsMap ? Object.assign(agentsMap[key], agentData) : agentData;
+        }
     }
 
     addAgent(attackee);

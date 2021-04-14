@@ -1,0 +1,173 @@
+Delivered-To: jarvis@ingress.com
+Received: by 2002:a05:7010:140a:b029:a8:d911:f8d6 with SMTP id l10csp1095481mdc;
+        Tue, 13 Apr 2021 08:10:09 -0700 (PDT)
+X-Received: by 2002:a05:6e02:b49:: with SMTP id f9mr28208872ilu.28.1618326609632;
+        Tue, 13 Apr 2021 08:10:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618326609; cv=none;
+        d=google.com; s=arc-20160816;
+        b=cbfF6ePNExD5HsTqmnuAuCqozOmaXDckTkZ9PPsGNPfh3oXePEp/jlLkP3MhUxDnwV
+         y+i1YC3AXXliOvv9Vj5irQNkPMCncQ1CJAd4qPwrE2TyhTP0WyduoKU9fzLjdUu5E62W
+         tfiiSbH6h1hfCbGQkFbOS5M0VdoShNgZZRdxY8ca+AorV4/q0eZcSk/2pPTafj5fm7dz
+         B7Y1M4ui6gKjiSlaoqmFghGQpr/OzxHMsGQu/JFMdXzVaRmkGss9FDaw7W3sPjd+6EVu
+         miZ+M2ExfcdgyvN4Q8EXoiqChEF8a8BwyrnKAGN+dobFSXsaN/NHyKN/qUOcjJ2wSXU6
+         Ewtg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:message-id:reply-to:date:mime-version
+         :dkim-signature;
+        bh=kpQOtfHS4wuiIiexu4wc4F2WwmMNst5chDIGp/Inzl8=;
+        b=j3j1uKRtVrIuHvX82Vmu/DH1bz0KqKdeYaJa934lH6Kg9rrUwUv4W/1Klt/tq2Eh7A
+         kU7GnNhATqJNoJsw9390cP7HO6MB3kyhdE0eR7Q3mWUhVRyvY8SrjyMVik4JLE16wDmT
+         /AjDpnbH0G3fIqUqpd+fLH3gHSCEzd7d+YjL6ywHIA8dyQGkZmv8ncV5MDCxlCuMBfSp
+         Z/F+6sKXhjrVCWGpKQ69/gF7vKckRKC++v6SN25TulcapM0SsTMnPPtKPPhLZVaVxJTs
+         cxJ7e/nMmh9OjvUjlrU8Jfd67mi17rQWhNykim+FuHfqF563SfaRkkgmI9o8C6r6Rhz/
+         YGaA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@nianticlabs.com header.s=google header.b=k5VvqFGF;
+       spf=pass (google.com: domain of 3ubr1yakba5o58n4mjce84jjc7.aiiaf8om8l6ihn8hn.6igqctb4rr.8m@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3UbR1YAkbA5o58N4MJCE84JJC7.AIIAF8OM8L6IHN8HN.6IGQCTB4RR.8M@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nianticlabs.com
+Return-Path: <3UbR1YAkbA5o58N4MJCE84JJC7.AIIAF8OM8L6IHN8HN.6IGQCTB4RR.8M@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id w12sor6321074iou.34.2021.04.13.08.10.09
+        for <wiz@haxx.es>
+        (Google Transport Security);
+        Tue, 13 Apr 2021 08:10:09 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 3ubr1yakba5o58n4mjce84jjc7.aiiaf8om8l6ihn8hn.6igqctb4rr.8m@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@nianticlabs.com header.s=google header.b=k5VvqFGF;
+       spf=pass (google.com: domain of 3ubr1yakba5o58n4mjce84jjc7.aiiaf8om8l6ihn8hn.6igqctb4rr.8m@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3UbR1YAkbA5o58N4MJCE84JJC7.AIIAF8OM8L6IHN8HN.6IGQCTB4RR.8M@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nianticlabs.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nianticlabs.com; s=google;
+        h=mime-version:date:reply-to:message-id:subject:from:to;
+        bh=kpQOtfHS4wuiIiexu4wc4F2WwmMNst5chDIGp/Inzl8=;
+        b=k5VvqFGFAag3bz3nLGOKuTiIJXgTHGroutGCt+73IfsYBNsG6LLrKIXSEtW5aKJoaN
+         vantFCR7ctod6myEjkWGNLJ4gL4qtjkEIJPiHQFkpfNhAgVJuZWDFCEkxm9WCXdKKCM2
+         OvHFiUkUsOKO9NRgHIJrqXQ2p/8gl9jbTx+pQ=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:date:reply-to:message-id:subject
+         :from:to;
+        bh=kpQOtfHS4wuiIiexu4wc4F2WwmMNst5chDIGp/Inzl8=;
+        b=IIy1K6+sxis5XDpBCKXsXGrwfnw1dF/0rDZmkNbhblXfA8Psft096zYwQUX4rPB3eZ
+         GvwG46igIznk50jKl/omxULEHu4TkQD+mJ2Xfhs+PnTSnAqQ7Fj2djYxSQcvSLLXBLs+
+         WX2jyGCO3w50SXJmdhRYNBFJ1gWZG5EQVFPZN6XC0CwvkK5JBcQX8P6rPEfx6HaJ1oEw
+         tRNylk8b+xyE8rxUairXgK41aGOD6WiPHu25b50n/JLRa6msfm5Wtn1MNuFCLAkmgvqW
+         WNRLaqR30pDfTezpizA7g5M3mLyEV5fiEGPn7hrdc8qVtpRSHh3cLlLsiJoDqczekYaI
+         AOTA==
+X-Gm-Message-State: AOAM530gDEcRgO1d3+lWJ3VzWP9qwCQA5gc43WMbzJ+CXuQI8oFpa3tS
+	JCJv9f7RvsWwzJOYYOj+nY8rl8Ho4dc1xPKS6xw8FVwcvPry
+X-Google-Smtp-Source: ABdhPJzR8w9Artr3IKzIKUqx+ZI9ujXhaJC00p/G6k3ZuAZibk/7ntzTYDZiz7BgO9OW0ROY4sNqsUqW9E7OMC7K2icM3/wU+mug
+MIME-Version: 1.0
+X-Received: by 2002:a5e:df08:: with SMTP id f8mr11677926ioq.60.1618326609447;
+ Tue, 13 Apr 2021 08:10:09 -0700 (PDT)
+Date: Tue, 13 Apr 2021 08:10:09 -0700
+Reply-To: Niantic Project Operations <ingress-support@nianticlabs.com>
+X-Google-Appengine-App-Id: s~betaspike
+X-Google-Appengine-App-Id-Alias: betaspike
+Message-ID: <000000000000afd3ba05bfdc0685@google.com>
+Subject: Ingress Damage Report: Entities attacked by ADA
+From: Niantic Project Operations <ingress-support@nianticlabs.com>
+To: jarvis <jarvis@ingress.com>
+Content-Type: multipart/alternative; boundary="000000000000afd39505bfdc0682"
+
+--000000000000afd39505bfdc0682
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+** Ingress - Begin Transmission**
+
+
+
+Agent Name:jarvis
+Faction:Enlightened
+Current Level:L15
+
+
+DAMAGE REPORT
+
+
+
+Trompe L'oeil
+
+1 Rue Fr=C3=A9d=C3=A9ric Bazille, 34000 Montpellier, France
+
+
+
+Portal - Trompe L'oeil Map
+
+
+
+
+DAMAGE:
+1 Resonator destroyed by ADA at 15:10 hrs GMT
+No remaining Resonators detected on this Portal.
+
+STATUS:
+Level 1
+Health: 0%
+Owner: [uncaptured]
+
+
+
+
+
+** Ingress - End Transmission **
+
+
+
+--000000000000afd39505bfdc0682
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div style=3D"margin: 0; padding: 0; font-family: 'Coda', Helvetica, sans-s=
+erif; font-size: 13px; line-height: 1.4em; letter-spacing: 0.1em;"><table c=
+ellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"750px" style=3D"co=
+lor: #403F41; background-color: #f6f6f6; margin: 0; padding: 0; border-coll=
+apse: collapse;"><tbody><tr><td height=3D"165px" style=3D"padding-left: 25p=
+x;"><img src=3D"http://commondatastorage.googleapis.com/ingressemail/common=
+/transmission-begin.gif" alt=3D"** Ingress - Begin Transmission**" width=3D=
+"305" height=3D"165" style=3D"display: block; border: 0; height: auto; line=
+-height: 100%; outline: none; text-decoration: none;"></td></tr><tr><td><ta=
+ble cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700px" style=
+=3D"table-layout: fixed; margin: 0 25px; padding: 0; border-collapse: colla=
+pse;"><tbody><tr><td valign=3D"top" style=3D"font-size: 13px; padding-botto=
+m: 1.5em;"><span style=3D"font-weight: normal; margin-right: .3em; font-siz=
+e: 10px; text-transform: uppercase;">Agent Name:</span><span style=3D"color=
+: #428F43;">jarvis</span><br /><span style=3D"font-weight: normal; margin-rig=
+ht: .3em; font-size: 10px; text-transform: uppercase;">Faction:</span><span=
+ style=3D"color: #428F43;">Enlightened</span><br /><span style=3D"font-weig=
+ht: normal; margin-right: .3em; font-size: 10px; text-transform: uppercase;=
+">Current Level:</span><span>L15</span></td></tr><tr><td style=3D"font-size=
+: 17px; padding-bottom: .2em; border-bottom: 2px solid #403F41;"><div>DAMAG=
+E REPORT</div></td></tr><tr><td style=3D"padding-top: 1em; padding-bottom: =
+1em;"><div>Trompe L&#39;oeil</div><div><a target=3D"_blank" href=3D"https:/=
+/www.ingress.com/intel?ll=3D43.603143,3.879331&pll=3D43.603143,3.879331&z=
+=3D19" style=3D"color: #D73B8E; border: none; text-decoration: none;">1 Rue=
+ Fr=C3=A9d=C3=A9ric Bazille, 34000 Montpellier, France</a></div></td></tr><=
+tr><td style=3D"overflow: hidden;"><table cellpadding=3D"0" cellspacing=3D"=
+0" border=3D"0"><td><img src=3D"http://lh3.googleusercontent.com/Wn26ojRCLK=
+99JcO0il1uA_vlPmQCpL-p0kdHYkpVD7xUN7e8mwas2MJmMD2FOd0tphvSEVh1MaHVCR2DuYmb5=
+xaFb_ez" alt=3D"Portal - Trompe L&#39;oeil" height=3D"201" style=3D"display=
+: block;border: 0;line-height: 100%;outline: none;text-decoration: none;"><=
+/td><td><img src=3D"http://maps.googleapis.com/maps/api/staticmap?center=3D=
+43.603143,3.879431&zoom=3D19&size=3D268x201&style=3Dvisibility:on%7Csaturat=
+ion:-50%7Cinvert_lightness:true%7Chue:0x131c1c&style=3Dfeature:water%7Cvisi=
+bility:on%7Chue:0x005eff%7Cinvert_lightness:true&style=3Dfeature:poi%7Cvisi=
+bility:off&style=3Dfeature:transit%7Cvisibility:off&markers=3Dicon:http://c=
+ommondatastorage.googleapis.com/ingress.com/img/map_icons/marker_images/neu=
+tral_icon.png%7Cshadow:false%7C43.603143,3.879331&client=3Dgme-nianticinc&s=
+ignature=3DQ1BKntiDTKyuaqrynrewaH6F-8k=3D" alt=3D"Map" height=3D"201" style=
+=3D"display: block;border: 0;height: auto;line-height: 100%;outline: none;t=
+ext-decoration: none;"></td></table></td></tr><tr><td style=3D"padding: 1em=
+ 0;"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700px=
+"><td width=3D"400px"><div>DAMAGE:<br>1 Resonator destroyed by <span style=
+=3D"color: #3679B9;">ADA</span> at 15:10 hrs GMT<br>No remaining Resona=
+tors detected on this Portal.</div></td><td><div>STATUS:<br>Level 1<br>Heal=
+th: 0%<br>Owner: [uncaptured]</div></td></table></td></tr></tbody></table><=
+/td></tr><tr><td height=3D"34px" style=3D"padding-top: 1em; padding-left: 2=
+5px;"><img src=3D"http://commondatastorage.googleapis.com/ingressemail/comm=
+on/transmission-end.gif" alt=3D"** Ingress - End Transmission **" width=3D"=
+293" height=3D"34" style=3D"display: block; border: 0; height: auto; line-h=
+eight: 100%; outline: none; text-decoration: none;"></td></tr></tbody></tab=
+le></div>
+--000000000000afd39505bfdc0682--
