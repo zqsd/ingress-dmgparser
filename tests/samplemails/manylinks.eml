@@ -1,0 +1,433 @@
+Delivered-To: jarvis@ingress.com
+Received: by 2002:a05:7010:140a:b029:a8:d911:f8d6 with SMTP id l10csp1095476mdc;
+        Tue, 13 Apr 2021 08:10:08 -0700 (PDT)
+X-Received: by 2002:a05:6602:2596:: with SMTP id p22mr26912400ioo.186.1618326608653;
+        Tue, 13 Apr 2021 08:10:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1618326608; cv=none;
+        d=google.com; s=arc-20160816;
+        b=OmnbdRRLxse/bLTqHvXARHH2aBjbBDBz324DK4Zrm4hY3bBGKdqTZD7jpAKAAD2SVe
+         06aKK07ab3FtvmunVhOyWgT8Ztl0Z7BgbOc0ovbUmgA+VpH/Dz+yuQ1KGmO4dV1fITeZ
+         WzzZ81RYM/bLlRkCDl7zCoDaxVu+r3kjFDMxnfwkXwUWhF1FAA8yYJjRRl1/d8R45bB0
+         HchqQXMG4L25j1ihvNdYJACd9nTEJT6CbR6wXJ52d+BRMU3yjMT0jg8VTL9vZJgOJ2up
+         NYo5BGGQGyGHKjmcrSd0xkKWeOPHqkNLQ6iyNx3ecgj2LWlWsJeOZ559uS598S7MHl31
+         pktA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:message-id:reply-to:date:mime-version
+         :dkim-signature;
+        bh=uLsAIEafdB5nCahFfhltwB0mqmopCTB8Jo6/Bopr4U4=;
+        b=ef2z24En1csg/33wICNpojKmTRzKhx0pumQSVccqHgsXETmvOwE9vmnzyxScDeAGkP
+         4EgsYWZT66aCJ2qCnU/TaXjYc7UAGNpFw9G21InCbtR15RyyrDiqsD/ODwOm1Sr36YeG
+         qS4L6kyrT5vtHZRaW9dvAuB9/RAS7b8zd+S3ZF4ahIfpMz/loh8FhA0T24VnirEOlI0T
+         5O6yVA09SPEGSMhnBJC7Ut9zcsQhTJI1WFV/JwPrV3ytUqjw+PLV2P5Tuqto4yoJkrFn
+         npUk9CHicu8juBCkhFEAuSzLEDq7HaXf4YNyEzAkrBAaXRk++ujXTOfbKpyZCt9D3x3a
+         KdKA==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@nianticlabs.com header.s=google header.b="sLB/YyCQ";
+       spf=pass (google.com: domain of 3ulr1yakba5k47m3libd73iib6.9hh9e7nl7k5hgm7gm.5hfpbsa3qq.7l@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3ULR1YAkbA5k47M3LIBD73IIB6.9HH9E7NL7K5HGM7GM.5HFPBSA3QQ.7L@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nianticlabs.com
+Return-Path: <3ULR1YAkbA5k47M3LIBD73IIB6.9HH9E7NL7K5HGM7GM.5HFPBSA3QQ.7L@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id y2sor598554ilq.8.2021.04.13.08.10.08
+        for <jarvis@ingress.com>
+        (Google Transport Security);
+        Tue, 13 Apr 2021 08:10:08 -0700 (PDT)
+Received-SPF: pass (google.com: domain of 3ulr1yakba5k47m3libd73iib6.9hh9e7nl7k5hgm7gm.5hfpbsa3qq.7l@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@nianticlabs.com header.s=google header.b="sLB/YyCQ";
+       spf=pass (google.com: domain of 3ulr1yakba5k47m3libd73iib6.9hh9e7nl7k5hgm7gm.5hfpbsa3qq.7l@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=3ULR1YAkbA5k47M3LIBD73IIB6.9HH9E7NL7K5HGM7GM.5HFPBSA3QQ.7L@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nianticlabs.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nianticlabs.com; s=google;
+        h=mime-version:date:reply-to:message-id:subject:from:to;
+        bh=uLsAIEafdB5nCahFfhltwB0mqmopCTB8Jo6/Bopr4U4=;
+        b=sLB/YyCQbV6QL5kF7piSZ1H+va21aLN/POvp8thu2kSSuPQU3xhzp2UNGoY+9fA0pr
+         vWrrC7+qG1HBhzHwvOf3k4hAavRqirQzpMQcNWUGWD1M9lCOTA755upeV/gERXcYQqjV
+         bG+Yj7TCSRAuE0rzA6B93tpoE9caV3RDFD+DA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:date:reply-to:message-id:subject
+         :from:to;
+        bh=uLsAIEafdB5nCahFfhltwB0mqmopCTB8Jo6/Bopr4U4=;
+        b=G+AY/AKxPH1fnaU0TevPSE2DjLXCUausShUV1PYbKC8OjdegtdmgP3P9aCIGC4KuPj
+         CTWSyVkVHvRbpKXuK6arRJkhxDBjJB2DYxaipiLc6D1QOYomnu2rjtr0ajO3n3hHYnN1
+         VvCt50NILB+/x6fZXCir9Q5OYg9PH1Ggwnu6W8k4qwMbRHk5nDHp1V3wWjtWGjWowfay
+         ZvchOdB1wISW/QYWaIcDbKiIifQoTI2NApLeMOLaYrgmnG9TyEt1Ygobg3M5ro6n2hGl
+         vzoRdkLNl8+MM5pHCwHs50fNCW9/lqtQZ15tOy2cEpyHR7xdcmPAVvLdAFV0kZ73gFUS
+         777g==
+X-Gm-Message-State: AOAM533b/wS9Lc/74ocp2EkgcXX36KYAAB6I7wvO6hDO8L2c8lwp01+g
+	ZVsSdV7DLIzlI9WYB3eml50jot6PZs4hVlVf+LIbeBpuELcB
+X-Google-Smtp-Source: ABdhPJz/YJuXJgi4i7P+LbbVkEGVijiNsyKw/bZDltnX1gl3MaM1DtXfb03r41hRVP0YiJJJlN1DD+ynu5ry3H1P3gNUUncQJyk9
+MIME-Version: 1.0
+X-Received: by 2002:a92:611:: with SMTP id x17mr13637889ilg.239.1618326608383;
+ Tue, 13 Apr 2021 08:10:08 -0700 (PDT)
+Date: Tue, 13 Apr 2021 08:10:08 -0700
+Reply-To: Niantic Project Operations <ingress-support@nianticlabs.com>
+X-Google-Appengine-App-Id: s~betaspike
+X-Google-Appengine-App-Id-Alias: betaspike
+Message-ID: <0000000000009f97fc05bfdc06f9@google.com>
+Subject: Ingress Damage Report: Entities attacked by ADA
+From: Niantic Project Operations <ingress-support@nianticlabs.com>
+To: jarvis <jarvis@ingress.com>
+Content-Type: multipart/alternative; boundary="0000000000009f97de05bfdc06f6"
+
+--0000000000009f97de05bfdc06f6
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+** Ingress - Begin Transmission**
+
+
+
+Agent Name:jarvis
+Faction:Enlightened
+Current Level:L15
+
+
+DAMAGE REPORT
+
+
+
+L'arche Perdue Du Corum
+
+Rue Michel de l'Hospital, 34000 Montpellier, France
+
+
+
+Portal - L'arche Perdue Du Corum Map
+
+
+
+LINK DESTROYED
+
+
+Trompe L'oeil: 1 Rue Fr=C3=A9d=C3=A9ric Bazille, 34000 Montpellier, France
+
+
+
+Portal - Trompe L'oeil Map
+
+
+
+
+DAMAGE:
+1 Link destroyed by ADA at 15:10 hrs GMT
+8 Resonators remaining on this Portal.
+
+STATUS:
+Level 6
+Health: 100%
+Owner: jarvis
+
+
+
+
+
+
+Trompe L'oeil
+
+1 Rue Fr=C3=A9d=C3=A9ric Bazille, 34000 Montpellier, France
+
+
+
+Portal - Trompe L'oeil Map
+
+
+
+LINKS DESTROYED
+
+
+L'arche Perdue Du Corum: Rue Michel de l'Hospital, 34000 Montpellier, Franc=
+e
+
+
+
+
+
+Portal - L'arche Perdue Du Corum Map
+
+
+
+
+
+
+
+Noria du Jardin des Plantes: Impasse du Jardin des Plantes, 34090 Montpelli=
+er, France
+
+
+
+
+
+Portal - Noria du Jardin des Plantes Map
+
+
+
+
+
+
+
+Terrain De Foot Du Mail Des Abb=C3=A9s: 195 Rue du Jeu de Mail des Abb=C3=
+=A8s, 34000 Montpellier, France
+
+
+
+
+
+Portal - Terrain De Foot Du Mail Des Abb=C3=A9s Map
+
+
+
+
+
+
+
+Ancien Puits: Avenue de Palavas, 34000 Montpellier, France
+
+
+
+Portal - Ancien Puits Map
+
+
+
+
+DAMAGE:
+4 Links destroyed by ADA at 15:10 hrs GMT
+1 Resonator remaining on this Portal.
+
+STATUS:
+Level 1
+Health: 11%
+Owner: jarvis
+
+
+
+
+
+** Ingress - End Transmission **
+
+
+
+--0000000000009f97de05bfdc06f6
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div style=3D"margin: 0; padding: 0; font-family: 'Coda', Helvetica, sans-s=
+erif; font-size: 13px; line-height: 1.4em; letter-spacing: 0.1em;"><table c=
+ellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"750px" style=3D"co=
+lor: #403F41; background-color: #f6f6f6; margin: 0; padding: 0; border-coll=
+apse: collapse;"><tbody><tr><td height=3D"165px" style=3D"padding-left: 25p=
+x;"><img src=3D"http://commondatastorage.googleapis.com/ingressemail/common=
+/transmission-begin.gif" alt=3D"** Ingress - Begin Transmission**" width=3D=
+"305" height=3D"165" style=3D"display: block; border: 0; height: auto; line=
+-height: 100%; outline: none; text-decoration: none;"></td></tr><tr><td><ta=
+ble cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700px" style=
+=3D"table-layout: fixed; margin: 0 25px; padding: 0; border-collapse: colla=
+pse;"><tbody><tr><td valign=3D"top" style=3D"font-size: 13px; padding-botto=
+m: 1.5em;"><span style=3D"font-weight: normal; margin-right: .3em; font-siz=
+e: 10px; text-transform: uppercase;">Agent Name:</span><span style=3D"color=
+: #428F43;">jarvis</span><br /><span style=3D"font-weight: normal; margin-rig=
+ht: .3em; font-size: 10px; text-transform: uppercase;">Faction:</span><span=
+ style=3D"color: #428F43;">Enlightened</span><br /><span style=3D"font-weig=
+ht: normal; margin-right: .3em; font-size: 10px; text-transform: uppercase;=
+">Current Level:</span><span>L15</span></td></tr><tr><td style=3D"font-size=
+: 17px; padding-bottom: .2em; border-bottom: 2px solid #403F41;"><div>DAMAG=
+E REPORT</div></td></tr><tr><td style=3D"padding-top: 1em; padding-bottom: =
+1em;"><div>L&#39;arche Perdue Du Corum</div><div><a target=3D"_blank" href=
+=3D"https://www.ingress.com/intel?ll=3D43.612006,3.883561&pll=3D43.612006,3=
+.883561&z=3D19" style=3D"color: #D73B8E; border: none; text-decoration: non=
+e;">Rue Michel de l&#39;Hospital, 34000 Montpellier, France</a></div></td><=
+/tr><tr><td style=3D"overflow: hidden;"><table cellpadding=3D"0" cellspacin=
+g=3D"0" border=3D"0"><td><img src=3D"http://lh3.googleusercontent.com/P5A8J=
+3cDPBkaYGmXe_YBO1nfcH13kK-TNwYgVdJSsSEAEZirxFnUwNQIQOhOPU_puuK7GeY3_oST4K7A=
+G5iA2HbIke4_" alt=3D"Portal - L&#39;arche Perdue Du Corum" height=3D"201" s=
+tyle=3D"display: block;border: 0;line-height: 100%;outline: none;text-decor=
+ation: none;"></td><td><img src=3D"http://maps.googleapis.com/maps/api/stat=
+icmap?center=3D43.612006,3.883661&zoom=3D19&size=3D268x201&style=3Dvisibili=
+ty:on%7Csaturation:-50%7Cinvert_lightness:true%7Chue:0x131c1c&style=3Dfeatu=
+re:water%7Cvisibility:on%7Chue:0x005eff%7Cinvert_lightness:true&style=3Dfea=
+ture:poi%7Cvisibility:off&style=3Dfeature:transit%7Cvisibility:off&markers=
+=3Dicon:http://commondatastorage.googleapis.com/ingress.com/img/map_icons/m=
+arker_images/enl_8res.png%7Cshadow:false%7C43.612006,3.883561&client=3Dgme-=
+nianticinc&signature=3DOYSfsvPyjlnSTeR1P7XwIs47GVk=3D" alt=3D"Map" height=
+=3D"201" style=3D"display: block;border: 0;height: auto;line-height: 100%;o=
+utline: none;text-decoration: none;"></td></table></td></tr><tr><td><table =
+cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700px"><td width=
+=3D"50px" style=3D"line-height: 0;"><img src=3D"http://commondatastorage.go=
+ogleapis.com/ingressemail/damagereport/line_1.png" width=3D"50" height=3D"2=
+6"></td><td>LINK DESTROYED</td></table></td><tr><td><table cellpadding=3D"0=
+" cellspacing=3D"0" border=3D"0" width=3D"700px"><td width=3D"50px" style=
+=3D"line-height: 0;"><img src=3D"http://commondatastorage.googleapis.com/in=
+gressemail/damagereport/line_1.png" width=3D"50" height=3D"26"></td><td>Tro=
+mpe L&#39;oeil: <a target=3D"_blank" href=3D"https://www.ingress.com/intel?=
+ll=3D43.603143,3.879331&pll=3D43.603143,3.879331&z=3D19" style=3D"color: #D=
+73B8E; border: none; text-decoration: none;">1 Rue Fr=C3=A9d=C3=A9ric Bazil=
+le, 34000 Montpellier, France</a></td></table></td></tr><tr><td style=3D"ov=
+erflow: hidden;"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0"><t=
+d width=3D"50px" style=3D"line-height: 0; vertical-align: top;"><img src=3D=
+"http://commondatastorage.googleapis.com/ingressemail/damagereport/line_3.p=
+ng" width=3D"50" height=3D"22"></td><td><img src=3D"http://lh3.googleuserco=
+ntent.com/Wn26ojRCLK99JcO0il1uA_vlPmQCpL-p0kdHYkpVD7xUN7e8mwas2MJmMD2FOd0tp=
+hvSEVh1MaHVCR2DuYmb5xaFb_ez" alt=3D"Portal - Trompe L&#39;oeil" height=3D"1=
+62" style=3D"display: block;border: 0;line-height: 100%;outline: none;text-=
+decoration: none;"></td><td><img src=3D"http://maps.googleapis.com/maps/api=
+/staticmap?center=3D43.603143,3.879431&zoom=3D19&size=3D216x162&style=3Dvis=
+ibility:on%7Csaturation:-50%7Cinvert_lightness:true%7Chue:0x131c1c&style=3D=
+feature:water%7Cvisibility:on%7Chue:0x005eff%7Cinvert_lightness:true&style=
+=3Dfeature:poi%7Cvisibility:off&style=3Dfeature:transit%7Cvisibility:off&ma=
+rkers=3Dicon:http://commondatastorage.googleapis.com/ingress.com/img/map_ic=
+ons/marker_images/enl_1res.png%7Cshadow:false%7C43.603143,3.879331&client=
+=3Dgme-nianticinc&signature=3D_qy6UTQP2c_rtzEXOyQwJ_x4n1w=3D" alt=3D"Map" h=
+eight=3D"162" style=3D"display: block;border: 0;height: auto;line-height: 1=
+00%;outline: none;text-decoration: none;"></td></table></td></tr><tr><td st=
+yle=3D"padding: 1em 0;"><table cellpadding=3D"0" cellspacing=3D"0" border=
+=3D"0" width=3D"700px"><td width=3D"400px"><div>DAMAGE:<br>1 Link destroyed=
+ by <span style=3D"color: #3679B9;">ADA</span> at 15:10 hrs GMT<br>8 Re=
+sonators remaining on this Portal.</div></td><td><div>STATUS:<br>Level 6<br=
+>Health: 100%<br>Owner: <span style=3D"color: #428F43;">jarvis</span></div></=
+td></table></td></tr><tr><td style=3D"font-size: 17px;padding-bottom: .2em;=
+border-bottom: 2px solid #403F41;text-transform: uppercase;"></td></tr><tr>=
+<td style=3D"padding-top: 1em; padding-bottom: 1em;"><div>Trompe L&#39;oeil=
+</div><div><a target=3D"_blank" href=3D"https://www.ingress.com/intel?ll=3D=
+43.603143,3.879331&pll=3D43.603143,3.879331&z=3D19" style=3D"color: #D73B8E=
+; border: none; text-decoration: none;">1 Rue Fr=C3=A9d=C3=A9ric Bazille, 3=
+4000 Montpellier, France</a></div></td></tr><tr><td style=3D"overflow: hidd=
+en;"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0"><td><img src=
+=3D"http://lh3.googleusercontent.com/Wn26ojRCLK99JcO0il1uA_vlPmQCpL-p0kdHYk=
+pVD7xUN7e8mwas2MJmMD2FOd0tphvSEVh1MaHVCR2DuYmb5xaFb_ez" alt=3D"Portal - Tro=
+mpe L&#39;oeil" height=3D"201" style=3D"display: block;border: 0;line-heigh=
+t: 100%;outline: none;text-decoration: none;"></td><td><img src=3D"http://m=
+aps.googleapis.com/maps/api/staticmap?center=3D43.603143,3.879431&zoom=3D19=
+&size=3D268x201&style=3Dvisibility:on%7Csaturation:-50%7Cinvert_lightness:t=
+rue%7Chue:0x131c1c&style=3Dfeature:water%7Cvisibility:on%7Chue:0x005eff%7Ci=
+nvert_lightness:true&style=3Dfeature:poi%7Cvisibility:off&style=3Dfeature:t=
+ransit%7Cvisibility:off&markers=3Dicon:http://commondatastorage.googleapis.=
+com/ingress.com/img/map_icons/marker_images/enl_1res.png%7Cshadow:false%7C4=
+3.603143,3.879331&client=3Dgme-nianticinc&signature=3DTY8tppT2flltCbMYlTj1c=
+CYDrbI=3D" alt=3D"Map" height=3D"201" style=3D"display: block;border: 0;hei=
+ght: auto;line-height: 100%;outline: none;text-decoration: none;"></td></ta=
+ble></td></tr><tr><td><table cellpadding=3D"0" cellspacing=3D"0" border=3D"=
+0" width=3D"700px"><td width=3D"50px" style=3D"line-height: 0;"><img src=3D=
+"http://commondatastorage.googleapis.com/ingressemail/damagereport/line_1.p=
+ng" width=3D"50" height=3D"26"></td><td>LINKS DESTROYED</td></table></td><t=
+r><td><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700p=
+x"><td width=3D"50px" style=3D"line-height: 0;"><img src=3D"http://commonda=
+tastorage.googleapis.com/ingressemail/damagereport/line_1.png" width=3D"50"=
+ height=3D"26"></td><td>L&#39;arche Perdue Du Corum: <a target=3D"_blank" h=
+ref=3D"https://www.ingress.com/intel?ll=3D43.612006,3.883561&pll=3D43.61200=
+6,3.883561&z=3D19" style=3D"color: #D73B8E; border: none; text-decoration: =
+none;">Rue Michel de l&#39;Hospital, 34000 Montpellier, France</a></td></ta=
+ble></td></tr><tr><td style=3D"overflow: hidden;"><table cellpadding=3D"0" =
+cellspacing=3D"0" border=3D"0"><tr><td width=3D"50px" style=3D"line-height:=
+ 0; vertical-align: top;"><img src=3D"http://commondatastorage.googleapis.c=
+om/ingressemail/damagereport/line_3.png" width=3D"50" height=3D"22"></td><t=
+d rowspan=3D"2"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0"><td=
+><img src=3D"http://lh3.googleusercontent.com/P5A8J3cDPBkaYGmXe_YBO1nfcH13k=
+K-TNwYgVdJSsSEAEZirxFnUwNQIQOhOPU_puuK7GeY3_oST4K7AG5iA2HbIke4_" alt=3D"Por=
+tal - L&#39;arche Perdue Du Corum" height=3D"162" style=3D"display: block;b=
+order: 0;line-height: 100%;outline: none;text-decoration: none;"></td><td><=
+img src=3D"http://maps.googleapis.com/maps/api/staticmap?center=3D43.612006=
+,3.883661&zoom=3D19&size=3D216x162&style=3Dvisibility:on%7Csaturation:-50%7=
+Cinvert_lightness:true%7Chue:0x131c1c&style=3Dfeature:water%7Cvisibility:on=
+%7Chue:0x005eff%7Cinvert_lightness:true&style=3Dfeature:poi%7Cvisibility:of=
+f&style=3Dfeature:transit%7Cvisibility:off&markers=3Dicon:http://commondata=
+storage.googleapis.com/ingress.com/img/map_icons/marker_images/enl_8res.png=
+%7Cshadow:false%7C43.612006,3.883561&client=3Dgme-nianticinc&signature=3D0n=
+GW9qO9IJDLiFlULDB-IhI0SSQ=3D" alt=3D"Map" height=3D"162" style=3D"display: =
+block;border: 0;height: auto;line-height: 100%;outline: none;text-decoratio=
+n: none;"></td></table></td></tr><tr><td width=3D"50px" style=3D"line-heigh=
+t: 0; vertical-align: top;"><img src=3D"http://commondatastorage.googleapis=
+.com/ingressemail/damagereport/line_1.png" width=3D"50" height=3D"140"></td=
+></tr></table></td></tr><tr><td><table cellpadding=3D"0" cellspacing=3D"0" =
+border=3D"0" width=3D"700px"><td width=3D"50px" style=3D"line-height: 0;"><=
+img src=3D"http://commondatastorage.googleapis.com/ingressemail/damagerepor=
+t/line_1.png" width=3D"50" height=3D"26"></td><td>Noria du Jardin des Plant=
+es: <a target=3D"_blank" href=3D"https://www.ingress.com/intel?ll=3D43.6145=
+60,3.871996&pll=3D43.614560,3.871996&z=3D19" style=3D"color: #D73B8E; borde=
+r: none; text-decoration: none;">Impasse du Jardin des Plantes, 34090 Montp=
+ellier, France</a></td></table></td></tr><tr><td style=3D"overflow: hidden;=
+"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0"><tr><td width=3D"=
+50px" style=3D"line-height: 0; vertical-align: top;"><img src=3D"http://com=
+mondatastorage.googleapis.com/ingressemail/damagereport/line_3.png" width=
+=3D"50" height=3D"22"></td><td rowspan=3D"2"><table cellpadding=3D"0" cells=
+pacing=3D"0" border=3D"0"><td><img src=3D"http://lh3.googleusercontent.com/=
+6yDsm5Icu9bjlyATorF1IsxhYcd5ePudgZ3QesCEou1Ck421N-rui2XO_ozwE4zLm1kd-lHEXjz=
+2KuJRikwDZc-Zfw" alt=3D"Portal - Noria du Jardin des Plantes" height=3D"162=
+" style=3D"display: block;border: 0;line-height: 100%;outline: none;text-de=
+coration: none;"></td><td><img src=3D"http://maps.googleapis.com/maps/api/s=
+taticmap?center=3D43.614560,3.872096&zoom=3D19&size=3D216x162&style=3Dvisib=
+ility:on%7Csaturation:-50%7Cinvert_lightness:true%7Chue:0x131c1c&style=3Dfe=
+ature:water%7Cvisibility:on%7Chue:0x005eff%7Cinvert_lightness:true&style=3D=
+feature:poi%7Cvisibility:off&style=3Dfeature:transit%7Cvisibility:off&marke=
+rs=3Dicon:http://commondatastorage.googleapis.com/ingress.com/img/map_icons=
+/marker_images/enl_8res.png%7Cshadow:false%7C43.614560,3.871996&client=3Dgm=
+e-nianticinc&signature=3D0dsUm6J-AlGjZBvMtsJzdNsq2tE=3D" alt=3D"Map" height=
+=3D"162" style=3D"display: block;border: 0;height: auto;line-height: 100%;o=
+utline: none;text-decoration: none;"></td></table></td></tr><tr><td width=
+=3D"50px" style=3D"line-height: 0; vertical-align: top;"><img src=3D"http:/=
+/commondatastorage.googleapis.com/ingressemail/damagereport/line_1.png" wid=
+th=3D"50" height=3D"140"></td></tr></table></td></tr><tr><td><table cellpad=
+ding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700px"><td width=3D"50px=
+" style=3D"line-height: 0;"><img src=3D"http://commondatastorage.googleapis=
+.com/ingressemail/damagereport/line_1.png" width=3D"50" height=3D"26"></td>=
+<td>Terrain De Foot Du Mail Des Abb=C3=A9s: <a target=3D"_blank" href=3D"ht=
+tps://www.ingress.com/intel?ll=3D43.618596,3.883673&pll=3D43.618596,3.88367=
+3&z=3D19" style=3D"color: #D73B8E; border: none; text-decoration: none;">19=
+5 Rue du Jeu de Mail des Abb=C3=A8s, 34000 Montpellier, France</a></td></ta=
+ble></td></tr><tr><td style=3D"overflow: hidden;"><table cellpadding=3D"0" =
+cellspacing=3D"0" border=3D"0"><tr><td width=3D"50px" style=3D"line-height:=
+ 0; vertical-align: top;"><img src=3D"http://commondatastorage.googleapis.c=
+om/ingressemail/damagereport/line_3.png" width=3D"50" height=3D"22"></td><t=
+d rowspan=3D"2"><table cellpadding=3D"0" cellspacing=3D"0" border=3D"0"><td=
+><img src=3D"http://lh3.googleusercontent.com/d-OkcfigEd6R23gDv-julAtHq49xC=
+e2hOCuBYXnjcIF8WP6ABs_yi1yM0TYyEazDm6OGSv5dBdAQnLoqCcz5LpECRw" alt=3D"Porta=
+l - Terrain De Foot Du Mail Des Abb=C3=A9s" height=3D"162" style=3D"display=
+: block;border: 0;line-height: 100%;outline: none;text-decoration: none;"><=
+/td><td><img src=3D"http://maps.googleapis.com/maps/api/staticmap?center=3D=
+43.618596,3.883773&zoom=3D19&size=3D216x162&style=3Dvisibility:on%7Csaturat=
+ion:-50%7Cinvert_lightness:true%7Chue:0x131c1c&style=3Dfeature:water%7Cvisi=
+bility:on%7Chue:0x005eff%7Cinvert_lightness:true&style=3Dfeature:poi%7Cvisi=
+bility:off&style=3Dfeature:transit%7Cvisibility:off&markers=3Dicon:http://c=
+ommondatastorage.googleapis.com/ingress.com/img/map_icons/marker_images/enl=
+_8res.png%7Cshadow:false%7C43.618596,3.883673&client=3Dgme-nianticinc&signa=
+ture=3DzANkKDLUHNpyw3oOcqHfm6Y3gt4=3D" alt=3D"Map" height=3D"162" style=3D"=
+display: block;border: 0;height: auto;line-height: 100%;outline: none;text-=
+decoration: none;"></td></table></td></tr><tr><td width=3D"50px" style=3D"l=
+ine-height: 0; vertical-align: top;"><img src=3D"http://commondatastorage.g=
+oogleapis.com/ingressemail/damagereport/line_1.png" width=3D"50" height=3D"=
+140"></td></tr></table></td></tr><tr><td><table cellpadding=3D"0" cellspaci=
+ng=3D"0" border=3D"0" width=3D"700px"><td width=3D"50px" style=3D"line-heig=
+ht: 0;"><img src=3D"http://commondatastorage.googleapis.com/ingressemail/da=
+magereport/line_1.png" width=3D"50" height=3D"26"></td><td>Ancien Puits: <a=
+ target=3D"_blank" href=3D"https://www.ingress.com/intel?ll=3D43.589116,3.8=
+91626&pll=3D43.589116,3.891626&z=3D19" style=3D"color: #D73B8E; border: non=
+e; text-decoration: none;">Avenue de Palavas, 34000 Montpellier, France</a>=
+</td></table></td></tr><tr><td style=3D"overflow: hidden;"><table cellpaddi=
+ng=3D"0" cellspacing=3D"0" border=3D"0"><td width=3D"50px" style=3D"line-he=
+ight: 0; vertical-align: top;"><img src=3D"http://commondatastorage.googlea=
+pis.com/ingressemail/damagereport/line_3.png" width=3D"50" height=3D"22"></=
+td><td><img src=3D"http://lh3.googleusercontent.com/cvhsc8vwFnQiobIdi-f-dMG=
+qGUpgZxLMAj6QeiUjULK4gd03VSb3CcxRpSIGcgv4roIn3s-2YYud2g9YA7HJhsYQAdA" alt=
+=3D"Portal - Ancien Puits" height=3D"162" style=3D"display: block;border: 0=
+;line-height: 100%;outline: none;text-decoration: none;"></td><td><img src=
+=3D"http://maps.googleapis.com/maps/api/staticmap?center=3D43.589116,3.8917=
+26&zoom=3D19&size=3D216x162&style=3Dvisibility:on%7Csaturation:-50%7Cinvert=
+_lightness:true%7Chue:0x131c1c&style=3Dfeature:water%7Cvisibility:on%7Chue:=
+0x005eff%7Cinvert_lightness:true&style=3Dfeature:poi%7Cvisibility:off&style=
+=3Dfeature:transit%7Cvisibility:off&markers=3Dicon:http://commondatastorage=
+.googleapis.com/ingress.com/img/map_icons/marker_images/enl_8res.png%7Cshad=
+ow:false%7C43.589116,3.891626&client=3Dgme-nianticinc&signature=3DUrXbUWFtF=
+nnEs4XWjUeRc6N_ebY=3D" alt=3D"Map" height=3D"162" style=3D"display: block;b=
+order: 0;height: auto;line-height: 100%;outline: none;text-decoration: none=
+;"></td></table></td></tr><tr><td style=3D"padding: 1em 0;"><table cellpadd=
+ing=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700px"><td width=3D"400px=
+"><div>DAMAGE:<br>4 Links destroyed by <span style=3D"color: #3679B9;">ADA=
+</span> at 15:10 hrs GMT<br>1 Resonator remaining on this Portal.</div><=
+/td><td><div>STATUS:<br>Level 1<br>Health: 11%<br>Owner: <span style=3D"col=
+or: #428F43;">jarvis</span></div></td></table></td></tr></tbody></table></td>=
+</tr><tr><td height=3D"34px" style=3D"padding-top: 1em; padding-left: 25px;=
+"><img src=3D"http://commondatastorage.googleapis.com/ingressemail/common/t=
+ransmission-end.gif" alt=3D"** Ingress - End Transmission **" width=3D"293"=
+ height=3D"34" style=3D"display: block; border: 0; height: auto; line-heigh=
+t: 100%; outline: none; text-decoration: none;"></td></tr></tbody></table><=
+/div>
+--0000000000009f97de05bfdc06f6--

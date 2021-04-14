@@ -48,15 +48,9 @@ export default async function(rawMail) {
     dmgsRows.forEach(rows => {
         const damage = parseDamage(rows[rows.length - 1]);
         const status = parseStatus(rows[rows.length - 1].querySelector('td > table > tbody > tr > td:nth-child(2) > div'));
-        const portals = [];
-        for(let i = 0; i < rows.length - 1; i += 3) {
-            const portal = parsePortal(rows[i], rows[i + 1]);
-            if(i === 0) {
-                portals.push(addPortal(portal, damage, status));
-            }
-            else {
-                portals.push(addPortal(portal));
-            }
+        const portals = [addPortal(parsePortal(rows[0], rows[1]), damage, status)];
+        for(let i = 3; i < rows.length - 1; i += 2) {
+            portals.push(addPortal(parsePortal(rows[i], rows[i + 1])));
         }
 
         addAgent(damage.attacker);

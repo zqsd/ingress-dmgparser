@@ -7,6 +7,7 @@ test("real mails", async () => {
     const tests = [
         '1link1link',
         'neutralized',
+        'manylinks',
     ];
     for(const test of tests) {
         const [mail, json] = await Promise.all([
