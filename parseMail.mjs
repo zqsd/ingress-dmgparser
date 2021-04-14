@@ -1,5 +1,5 @@
 import {simpleParser} from 'mailparser';
-import {getDmgRows, parseAgent, parseDamage, parseMainAgent, parseStatus, parsePortal, parseMap} from './dmgReportHelpers';
+import {getDmgRows, parseAgent, parseDamage, parseMainAgent, parseStatus, parsePortal, parseMap} from './dmgReportHelpers.mjs';
 import {JSDOM} from 'jsdom';
 
 async function readMail(data) {

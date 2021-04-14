@@ -1,7 +1,7 @@
 import {test} from 'uvu';
 import * as assert from 'uvu/assert';
 import {JSDOM} from 'jsdom';
-import {getDmgRows, parseAgent, parseDamage, parseMainAgent, parseStatus, parsePortal, parseMap} from '../dmgReportHelpers';
+import {getDmgRows, parseAgent, parseDamage, parseMainAgent, parseStatus, parsePortal, parseMap} from '../dmgReportHelpers.mjs';
 
 function html(code) {
     return new JSDOM(code).window.document.body;

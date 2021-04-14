@@ -1,11 +1,12 @@
 import {promises as fs} from "fs";
 import { test } from "uvu";
 import * as assert from "uvu/assert";
-import parseMail from "../parseMail";
+import parseMail from "../parseMail.mjs";
 
 test("real mails", async () => {
     const tests = [
         '1link1link',
+        'neutralized',
     ];
     for(const test of tests) {
         const [mail, json] = await Promise.all([

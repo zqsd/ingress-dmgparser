@@ -5,7 +5,7 @@
   "main": "parseMail.js",
   "type": "module",
   "scripts": {
-    "test": "uvu -r esm tests"
+    "test": "uvu tests"
   },
   "keywords": [
     "ingress",

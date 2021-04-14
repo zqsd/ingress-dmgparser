@@ -1,4 +1,4 @@
-const querystring = require('querystring');
+import querystring from 'querystring';
 
 export function getDmgRows(document) {
     const trs = document.querySelector('table[width="750px"] > tbody > tr > td > table[width="700px"] > tbody').childNodes;
