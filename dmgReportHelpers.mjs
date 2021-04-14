@@ -51,7 +51,7 @@ export function parseDamage(element) {
                     resonatorsDestroyed = parseInt(text);
                     attacker = parseAgent(element.childNodes[i + 1]);
                 }
-                else if(text.endsWith(' Resonators remaining on this Portal.')) {
+                else if(text.endsWith(' remaining on this Portal.')) {
                     resonators = parseInt(text);
                 }
                 else if(text.endsWith('No remaining Resonators detected on this Portal.')) {
