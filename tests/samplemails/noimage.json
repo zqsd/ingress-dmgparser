@@ -1,0 +1,38 @@
+{
+    "attackee": "jarvis",
+    "timestamp": 1579914453000,
+    "agents": {
+        "jarvis": {
+            "name": "jarvis",
+            "team": "enlightened",
+            "level": 15,
+            "email": "jarvis@ingress.com"
+        },
+        "bluecat": {
+            "name": "bluecat",
+            "team": "resistance"
+        }
+    },
+    "portals": {
+        "43.472018,4.393938": {
+            "name": "Ancient portal",
+            "address": "Sea of tranquility, Luna",
+            "latitude": 43.472018,
+            "longitude": 4.393938,
+            "resonators": 8,
+            "team": "enlightened",
+            "level": 5,
+            "health": 43,
+            "owner": "jarvis"
+        }
+    },
+    "damages": [
+        {
+            "portal": "43.472018,4.393938",
+            "attacker": "bluecat",
+            "resonators": 0,
+            "mods": 1,
+            "links": []
+        }
+    ]
+}

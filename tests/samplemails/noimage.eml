@@ -1,0 +1,169 @@
+Delivered-To: jarvis@ingress.com
+Received: by 2002:a2e:9007:0:0:0:0:0 with SMTP id h7csp1323970ljg;
+        Fri, 24 Jan 2020 17:07:34 -0800 (PST)
+X-Received: by 2002:a92:3646:: with SMTP id d6mr5429525ilf.148.1579914454018;
+        Fri, 24 Jan 2020 17:07:34 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1579914454; cv=none;
+        d=google.com; s=arc-20160816;
+        b=PJAeGI+JYBPZuGP36f1QLAQBtzUCHZUUJ5BKvezRmitGL5l/8/16uaM6NootctGy7E
+         QXFYbTjZdRD5gE9eSw8t6mlmz0rhmD2URKlKyuDqMlzxl/ZVsTOjVsNmL0fdLGnsT/uM
+         jA2w2ggP3XnYbIjdbDFY92oePZT+hkavUGpUNBkXhKmm6FWJ3xp3R+3z1ljR3fkAoco6
+         QuDJjAazyN910CIla9kfnbB1CAOjZcJVXKIlW/I/0kSWdCwQ9nN3llkqSQW1baeXJeWA
+         volgnaX+eSmQ7bDz0zTllJ0pCYzyH1pxb+Pzh5yy4losV1G4p38CTDAFQpOQHlSAektP
+         bhxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20160816;
+        h=to:from:subject:message-id:reply-to:date:mime-version
+         :dkim-signature;
+        bh=5e7LL1nu8E5PdDPC5qK1ax6wPN2dsXRt+x0z2D0STEg=;
+        b=QaX35X6JItUzORHsF9NFPe/216Nx2MWvWgmnpP+kngt5UUd2aat2C5PiOkghq0nOZS
+         gW/1zO6rwOWrCYTOVFZ/0O9d/1dpPN5SzOHUjpiKGZxHvaBy0sLUnnnPXQszgQIhqQew
+         7ySEquE3TXle5cpMeodwK1HH7prMOK9trKI0PMH0mdY06wkzK0xL0ZwBocDsjV7Y00tW
+         w7G/rXm0K6349yh91aIfsdmXT40pMDwZjzlRKxhAtBTdiKPBDPNaVRXGkjrzJ7RRrCIN
+         iDA964l6hLcKDfV+hooj+TePS6LmdFmeCgdrvuHg2U10D1grhX/u4vE++7OlS68Ip4u/
+         hy4g==
+ARC-Authentication-Results: i=1; mx.google.com;
+       dkim=pass header.i=@nianticlabs.com header.s=google header.b=f0PkeiXp;
+       spf=pass (google.com: domain of 31zqrxgkbakqfixewtmoiettmh.ksskpiywivgsrxirx.gsq@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=31ZQrXgkbAKQFIXEWTMOIETTMH.KSSKPIYWIVGSRXIRX.GSQ@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nianticlabs.com
+Return-Path: <31ZQrXgkbAKQFIXEWTMOIETTMH.KSSKPIYWIVGSRXIRX.GSQ@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com>
+Received: from mail-sor-f69.google.com (mail-sor-f69.google.com. [209.85.220.69])
+        by mx.google.com with SMTPS id k8sor10928798jak.7.2020.01.24.17.07.33
+        for <jarvis@ingress.com>
+        (Google Transport Security);
+        Fri, 24 Jan 2020 17:07:34 -0800 (PST)
+Received-SPF: pass (google.com: domain of 31zqrxgkbakqfixewtmoiettmh.ksskpiywivgsrxirx.gsq@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) client-ip=209.85.220.69;
+Authentication-Results: mx.google.com;
+       dkim=pass header.i=@nianticlabs.com header.s=google header.b=f0PkeiXp;
+       spf=pass (google.com: domain of 31zqrxgkbakqfixewtmoiettmh.ksskpiywivgsrxirx.gsq@m3kw2wvrgufz5godrsrytgd7.apphosting.bounces.google.com designates 209.85.220.69 as permitted sender) smtp.mailfrom=31ZQrXgkbAKQFIXEWTMOIETTMH.KSSKPIYWIVGSRXIRX.GSQ@M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+       dmarc=pass (p=NONE sp=NONE dis=NONE) header.from=nianticlabs.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nianticlabs.com; s=google;
+        h=mime-version:date:reply-to:message-id:subject:from:to;
+        bh=5e7LL1nu8E5PdDPC5qK1ax6wPN2dsXRt+x0z2D0STEg=;
+        b=f0PkeiXpYQ1BETT+Zq9K0UJXYVHgsRaB6I9KHvs2mSY/f2QTa3TjtrNIdtCko7/UEd
+         DbXTzupPATVXomQN4DejbVOZL35hj9z8KJ8InHv/CokEL94Fmki4c23N043jqUCva6y1
+         O5jlmGrYfxylv9foE/DqYsBYgprh60dHztpn0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:date:reply-to:message-id:subject
+         :from:to;
+        bh=5e7LL1nu8E5PdDPC5qK1ax6wPN2dsXRt+x0z2D0STEg=;
+        b=Cj9uVmeQRVy3ZRk6IH6QuPbsnTk13kpJ8Cea9set4GV7uN5luiHfvUFjawk7HZdlD7
+         xjzhImSLB0j3a6AuMwRZwoFOgg2g/zYqZ1q+GVTCr+LB2QbS3prHnUICzHb8tygkTxs1
+         8FwGRHGriqDEShYAk1UhdmZvnpPlpXajkS+XgmzPOkfpzYVaEno9+PrdaovrMZEDm7au
+         in1fdT1Nn6OeM+Hj1HqVQoIBhrLXfqWzGfUmGdZTsLAvKGSCZIhLola8aP/2BfaElRHx
+         EJY+LPzCb1QFm14W7Vu2waszzoJnB7wQqvrrXpWJ+Bex1z2hwmYSuDWR20xQLWgiDVwg
+         11Eg==
+X-Gm-Message-State: APjAAAV+W3BuPTQIjv8p55nka5nLKpslHozf9f7sRjRiMX8B/Jil/V4s
+	uPFK5yTlFPHe1hkduN9QlGC6bK6QWq58vQRuKmjXS4YxYyjs
+X-Google-Smtp-Source: APXvYqw7XhWs4EryEc8IFYymc4mr7AVMs8azGHdQHE+bghFZb3nApJaBa3uK/9RntSykaImoRL4xmYIricqoLg9K4nY4h117LQzo
+MIME-Version: 1.0
+X-Received: by 2002:a05:6638:76c:: with SMTP id y12mr4784286jad.95.1579914453243;
+ Fri, 24 Jan 2020 17:07:33 -0800 (PST)
+Date: Fri, 24 Jan 2020 17:07:33 -0800
+Reply-To: Niantic Project Operations <ingress-support@nianticlabs.com>
+X-Google-Appengine-App-Id: s~betaspike
+X-Google-Appengine-App-Id-Alias: betaspike
+Message-ID: <000000000000c2f1cf059cec7fc3@google.com>
+Subject: Ingress Damage Report: Entities attacked by bluecat
+From: Niantic Project Operations <ingress-support@nianticlabs.com>
+To: jarvis <jarvis@ingress.com>
+Content-Type: multipart/alternative; boundary="000000000000c2f1a4059cec7fc0"
+
+--000000000000c2f1a4059cec7fc0
+Content-Type: text/plain; charset="UTF-8"
+
+** Ingress - Begin Transmission**
+
+
+
+Agent Name:jarvis
+Faction:Enlightened
+Current Level:L15
+
+
+DAMAGE REPORT
+
+
+
+Ancient portal,
+
+Sea of tranquility, Luna
+
+
+
+
+Map
+
+
+DAMAGE:
+1 Mod destroyed by bluecat at 01:07 hrs GMT
+8 Resonators remaining on this Portal.
+
+STATUS:
+Level 5
+Health: 43%
+Owner: jarvis
+
+
+
+
+
+** Ingress - End Transmission **
+
+
+
+--000000000000c2f1a4059cec7fc0
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div style=3D"margin: 0; padding: 0; font-family: 'Coda', Helvetica, sans-s=
+erif; font-size: 13px; line-height: 1.4em; letter-spacing: 0.1em;"><table c=
+ellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"750px" style=3D"co=
+lor: #403F41; background-color: #f6f6f6; margin: 0; padding: 0; border-coll=
+apse: collapse;"><tbody><tr><td height=3D"165px" style=3D"padding-left: 25p=
+x;"><img src=3D"http://commondatastorage.googleapis.com/ingressemail/common=
+/transmission-begin.gif" alt=3D"** Ingress - Begin Transmission**" width=3D=
+"305" height=3D"165" style=3D"display: block; border: 0; height: auto; line=
+-height: 100%; outline: none; text-decoration: none;"></td></tr><tr><td><ta=
+ble cellpadding=3D"0" cellspacing=3D"0" border=3D"0" width=3D"700px" style=
+=3D"table-layout: fixed; margin: 0 25px; padding: 0; border-collapse: colla=
+pse;"><tbody><tr><td valign=3D"top" style=3D"font-size: 13px; padding-botto=
+m: 1.5em;"><span style=3D"font-weight: normal; margin-right: .3em; font-siz=
+e: 10px; text-transform: uppercase;">Agent Name:</span><span style=3D"color=
+: #428F43;">jarvis</span><br /><span style=3D"font-weight: normal; margin-r=
+ight: .3em; font-size: 10px; text-transform: uppercase;">Faction:</span><sp=
+an style=3D"color: #428F43;">Enlightened</span><br /><span style=3D"font-we=
+ight: normal; margin-right: .3em; font-size: 10px; text-transform: uppercas=
+e;">Current Level:</span><span>L15</span></td></tr><tr><td style=3D"font-si=
+ze: 17px; padding-bottom: .2em; border-bottom: 2px solid #403F41;"><div>DAM=
+AGE REPORT</div></td></tr><tr><td style=3D"padding-top: 1em; padding-bottom=
+: 1em;"><div>Ancient portal</div><div><a target=3D"_blank" =
+href=3D"https://www.ingress.com/intel?ll=3D43.472018,4.393938&pll=3D43.4720=
+18,4.393938&z=3D19" style=3D"color: #D73B8E; border: none; text-decoration:=
+ none;">Sea of tranquility, Luna</a></div></td></tr><tr>=
+<td style=3D"overflow: hidden;"><table cellpadding=3D"0" cellspacing=3D"0" =
+border=3D"0"><div style=3D"width:1000px;"><div style=3D"width: auto; height=
+: 160px; float: left; display: inline-block; overflow:hidden;"><img src=3D"=
+http://maps.googleapis.com/maps/api/staticmap?center=3D43.472018,4.393938&z=
+oom=3D19&size=3D700x160&style=3Dvisibility:on%7Csaturation:-50%7Cinvert_lig=
+htness:true%7Chue:0x131c1c&style=3Dfeature:water%7Cvisibility:on%7Chue:0x00=
+5eff%7Cinvert_lightness:true&style=3Dfeature:poi%7Cvisibility:off&style=3Df=
+eature:transit%7Cvisibility:off&markers=3Dicon:http://commondatastorage.goo=
+gleapis.com/ingress.com/img/map_icons/marker_images/enl_8res.png%7Cshadow:f=
+alse%7C43.472018,4.393938&client=3Dgme-nianticinc&signature=3DpjF6apNgfWC16=
+aLOtCqPhH47_wI=3D" alt=3D"Map" width=3D"700" height=3D"160" style=3D"displa=
+y: block;border: 0;height: auto;line-height: 100%;outline: none;text-decora=
+tion: none;"></div><div style=3D"clear:both;"></div></table></td></tr><tr><=
+td style=3D"padding: 1em 0;"><table cellpadding=3D"0" cellspacing=3D"0" bor=
+der=3D"0" width=3D"700px"><td width=3D"400px"><div>DAMAGE:<br>1 Mod destroy=
+ed by <span style=3D"color: #3679B9;">bluecat</span> at 01:07 hrs GMT<br>=
+8 Resonators remaining on this Portal.</div></td><td><div>STATUS:<br>Level =
+5<br>Health: 43%<br>Owner: <span style=3D"color: #428F43;">jarvis</span></d=
+iv></td></table></td></tr></tbody></table></td></tr><tr><td height=3D"34px"=
+ style=3D"padding-top: 1em; padding-left: 25px;"><img src=3D"http://commond=
+atastorage.googleapis.com/ingressemail/common/transmission-end.gif" alt=3D"=
+** Ingress - End Transmission **" width=3D"293" height=3D"34" style=3D"disp=
+lay: block; border: 0; height: auto; line-height: 100%; outline: none; text=
+-decoration: none;"></td></tr></tbody></table></div>
+--000000000000c2f1a4059cec7fc0--

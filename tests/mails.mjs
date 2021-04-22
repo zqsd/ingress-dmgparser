@@ -7,6 +7,7 @@ import parseMail from "../parseMail.mjs";
     '1link1link',
     'neutralized',
     'manylinks',
+    'noimage',
 ].forEach(filename => {
     test(`mail : ${filename}`, async () => {
         const [mail, json] = await Promise.all([

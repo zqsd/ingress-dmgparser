@@ -119,17 +119,19 @@ export function parsePortal(tr1, tr2) {
     const imgMap = tr2.querySelector('img[alt="Map"]');
     const name = (tr1.querySelector('table')?.querySelector('table td:last-child').childNodes[0].textContent.slice(0, -2) ||
                   tr1.querySelector('td div').childNodes[0].textContent).trim();
-    const image = imgImage.getAttribute('src');
     const map = imgMap.getAttribute('src');
     const {resonators, team} = parseMap(map);
 
-    return {
+    const result = {
         name,
         address,
-        image,
         latitude: latlng[0],
         longitude: latlng[1],
         resonators,
         team,
+    };
+    if(imgImage) {
+        result.image = imgImage?.getAttribute('src');
     }
+    return result;
 }
